@@ -1,9 +1,12 @@
-import logo from './logo.svg';
 import './App.css';
+import Wrapper from "./components/Wrapper"
+import CardContainer from "./components/CardContainer"
 
 function App() {
   return (
-    <Wrapper />
+    <Wrapper>
+      <CardContainer />
+    </Wrapper>
   );
 }
 
