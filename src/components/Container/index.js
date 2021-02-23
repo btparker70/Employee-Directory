@@ -2,7 +2,7 @@ import React from "react";
 // import Card from "../Card";
 import "./style.css";
 
-function CardContainer() {
+function Container() {
   return (
     <div className="jumbotron card-container">
       {/* <Card /> */}
@@ -10,4 +10,4 @@ function CardContainer() {
   );
 }
 
-export default CardContainer;
+export default Container;

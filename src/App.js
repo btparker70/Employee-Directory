@@ -1,12 +1,9 @@
 import './App.css';
-import Wrapper from "./components/Wrapper"
-import CardContainer from "./components/CardContainer"
+import Main from "./pages/Main"
 
 function App() {
   return (
-    <Wrapper>
-      <CardContainer />
-    </Wrapper>
+    <Main />
   );
 }
 
