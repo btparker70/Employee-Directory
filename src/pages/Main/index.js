@@ -9,6 +9,7 @@ function Main() {
         <h2>Employee Table</h2>
       </div>
         <Container className="mt-3 px-5">
+          
         </Container>
     </div>
   );
