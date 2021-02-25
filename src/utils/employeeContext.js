@@ -1,10 +1,12 @@
 import React from "react";
 
 const UserContext = React.createContext({
-  firstName: ""
-  // image: "",
-  // language: "",
-  // handleBtnClick:() => {}
+  image: "",
+  name: "",
+  phone: "",
+  email: "",
+  DOB: "",
+  handleSort: () => undefined
 });
 
 export default UserContext;

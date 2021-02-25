@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
-import Container from "../../components/Container";
 import "bootstrap/dist/css/bootstrap.min.css";
 import API from "../../utils/API";
-import EmployeeContext from "../../utils/employeeContext"
-
+import "./style.css";
 
 function Main() {
+  // State variable and their functions
   const [employees, setEmployees] = useState([]);
   const [filtered, setFiltered] = useState([])
   const [order, setOrder] = useState("A")
 
+  // On mount for getting api data
   useEffect(() => {
     getEmployees();
-    
   }, [])
 
+  // Gets employee data from api
   function getEmployees() {
     API.getEmployees().then(res => {
-      console.log(res);
       setEmployees(res.data.results);
       setFiltered(res.data.results);
     })
     .catch(err => console.log(err))
   }
 
-
+// Creates rows of employees and their data
 const renderEmployeeRows = () => {
   const mappedArr = filtered.map((employee) => {
     return (
@@ -37,10 +36,10 @@ const renderEmployeeRows = () => {
       </tr>
     );
   });
-
   return mappedArr;
 }
 
+// Search function
 const handleSearch = () => {
   //get the input
   const input = document.querySelector("#search").value.toLowerCase();
@@ -50,8 +49,8 @@ const handleSearch = () => {
   setFiltered(filteredData);
 }
 
+// Sort function
 const handleSort = () => {
-  console.log("clicking", order);
   if (order === "A") {
     let sorrtedArr = filtered;
     sorrtedArr.sort((a, b) => (a.name.first.toLowerCase() > b.name.first.toLowerCase() ? -1 : 1))
@@ -65,12 +64,13 @@ const handleSort = () => {
     setOrder("A");
   }
 }
-
+  // Table header and body for render
   return (
-    // <EmployeeContext.Provider value={employees}>
     <div>
+      <h1 id="title">Employee Database</h1>
       <input id="search" onChange={handleSearch}/>
-      <table>
+      <table id="employees">
+        <tbody>
         <tr>
           <th>Image</th>
           <th onClick={handleSort}>Name</th>
@@ -79,9 +79,9 @@ const handleSort = () => {
           <th>DOB</th>
         </tr>
         {renderEmployeeRows()}
+        </tbody>
       </table>
     </div>
-    // </EmployeeContext.Provider>
   );
 }
 
