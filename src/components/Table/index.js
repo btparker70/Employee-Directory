@@ -1,23 +1,23 @@
-import React, { useContext, Component } from "react";
+import React, {Component } from "react";
 import EmployeeContext from "../../utils/employeeContext";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import API from "../../utils/API";
 
-class Table extends React.Component {
+class Table extends Component {
   
-  // constructor(props) {
-  //   console.log(props)
-  //   super(props);
+  constructor(props) {
+    console.log(props)
+    super(props);
   //   this.state = {
   //     students: [
   //       { id: 1, name: "Wasif", age: 21, email: "wasif@email.com" },
   //       { id: 2, name: "Ali", age: 19, email: "ali@email.com" },
   //       { id: 3, name: "Saad", age: 16, email: "saad@email.com" },
-  //       { id: 4, name: "name2", age: 25, email: "asad@email.com" },
+  //       { id: 4, name: "name1", age: 25, email: "asad@email.com" },
   //     ],
   //   };
-  // }
+  }
 
   renderTableHeader() {
     let header = Object.keys(this.props[0]) || Object.keys(this.state.students[0]);

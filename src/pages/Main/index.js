@@ -7,30 +7,79 @@ import EmployeeContext from "../../utils/employeeContext"
 
 function Main() {
   const [employees, setEmployees] = useState([]);
+  const [filtered, setFiltered] = useState([])
+  const [order, setOrder] = useState("A")
 
   useEffect(() => {
     getEmployees();
-    // console.log(employees)
+    
   }, [])
 
   function getEmployees() {
-    API.getEmployees().then(employees => {
-      setEmployees(employees);
+    API.getEmployees().then(res => {
+      console.log(res);
+      setEmployees(res.data.results);
+      setFiltered(res.data.results);
     })
     .catch(err => console.log(err))
   }
-// res.data.results[0].name.first
-//res.data.results[0].picture.thumbnail
-// res.data.results[0].phone
-//res.data.results[0].email
+
+
+const renderEmployeeRows = () => {
+  const mappedArr = filtered.map((employee) => {
+    return (
+      <tr key={employee.login.uuid}>
+          <td><img src={employee.picture.medium}/></td>
+          <td>{employee.name.first} {employee.name.last}</td>
+          <td>{employee.phone}</td>
+          <td>{employee.email}</td>
+          <td>{employee.dob.date}</td>
+      </tr>
+    );
+  });
+
+  return mappedArr;
+}
+
+const handleSearch = () => {
+  //get the input
+  const input = document.querySelector("#search").value.toLowerCase();
+  //filter the employee with the input
+  const filteredData = employees.filter((employee) => employee.name.first.toLowerCase().indexOf(input) > -1);
+  //set the state filtered
+  setFiltered(filteredData);
+}
+
+const handleSort = () => {
+  console.log("clicking", order);
+  if (order === "A") {
+    let sorrtedArr = filtered;
+    sorrtedArr.sort((a, b) => (a.name.first.toLowerCase() > b.name.first.toLowerCase() ? -1 : 1))
+    setFiltered(sorrtedArr);
+    setOrder("D");
+  } else {
+    let sorrtedArr = filtered;
+    sorrtedArr.sort((a, b) => (a.name.first.toLowerCase() > b.name.first.toLowerCase() ? 1 : -1))
+    console.log(sorrtedArr);
+    setFiltered(sorrtedArr);
+    setOrder("A");
+  }
+}
 
   return (
     // <EmployeeContext.Provider value={employees}>
     <div>
-      <div className="mt-4">
-        <h2>Employee Table</h2>
-      </div>
-        <Container className="mt-3 px-5" {...employees}/>
+      <input id="search" onChange={handleSearch}/>
+      <table>
+        <tr>
+          <th>Image</th>
+          <th onClick={handleSort}>Name</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>DOB</th>
+        </tr>
+        {renderEmployeeRows()}
+      </table>
     </div>
     // </EmployeeContext.Provider>
   );
