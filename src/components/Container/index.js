@@ -3,10 +3,10 @@ import Table from "../Table";
 import "./style.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-function Container() {
+function Container(props) {
   return (
     <div className="jumbotron card-container">
-      <Table />
+      <Table {...props}/>
     </div>
   );
 }

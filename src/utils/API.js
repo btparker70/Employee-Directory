@@ -1,28 +1,36 @@
 import axios from "axios";
 
 const BASEURL = "https://randomuser.me/api/";
-const totalEmployees = "?/results=3"
+const totalEmployees = "?/results=4"
 
 // Export an object with a "search" method that searches the Giphy API for the passed query
-// export default {
-//   getEmployees: function() {
-//     return new Promise((resolve, reject) => {
-//       axios
-//       .get(BASEURL + totalEmployees)
-//       .then(res => {
-//         const employees = res.data,
-//         const results = employee.map(user => {
-//           return {
-//             firstName: employee.
-//           }
-//         })
-//       })
-//     })
-//   }
-// }
-
 export default {
   getEmployees: function() {
-    return axios.get(BASEURL + totalEmployees);
+    return new Promise((resolve, reject) => {
+      axios
+      .get(BASEURL + totalEmployees)
+      .then(res => {
+        const employees = res.data;
+        const results = employees.results.map(employee => {
+          return {
+            firstName: employee.name.first,
+            lastName: employee.name.last,
+            email: employee.email,
+            phone: employee.cell,
+            image: employee.picture.medium
+          }
+        })
+        // what does this do
+        resolve(results);
+        
+      })
+      .catch(err => reject(err))
+    })
   }
-};
+}
+
+// export default {
+//   getEmployees: function() {
+//     return axios.get(BASEURL + totalEmployees);
+//   }
+// };
